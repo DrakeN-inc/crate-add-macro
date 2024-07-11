@@ -1,0 +1,13 @@
+[package]
+name = "add_macro"
+decription = "The some useful macros for easily work and save your time"
+version = "0.1.0"
+edition = "2021"
+authors = ["DrakeN-inc <t.me/DrakeN-inc>"]
+license = "MIT"
+
+[features]
+test = ["dep:regex"]
+
+[dependencies]
+regex = { version = "1.10.5", optional = true }
