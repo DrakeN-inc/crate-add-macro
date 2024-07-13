@@ -1,5 +1,5 @@
 [package]
-name = "impl-display"
+name = "add-macro-impl-display"
 decription = "Implementation of trait 'Display'"
 version = "0.1.0"
 edition = "2021"
@@ -11,3 +11,6 @@ repository = "https://github.com/DrakeN-inc/rust-add-macro/tree/main/impl-displa
 proc_macro = true
 
 [dependencies]
+proc-macro2 = "1.0.86"
+quote = "1.0.36"
+venial = "0.6.0"
