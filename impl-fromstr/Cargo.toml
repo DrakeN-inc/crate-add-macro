@@ -3,8 +3,9 @@ name = "add-macro-impl-fromstr"
 decription = "Implementation of trait 'FromStr'"
 version = "0.1.0"
 edition = "2021"
-authors = ["DrakeN-inc <t.me/DrakeN-inc>"]
+authors = ["DrakeN-inc <t.me/DrakeN_inc>"]
 license = "MIT"
+repository = "https://github.com/DrakeN-inc/rust-add-macro/tree/main/impl-fromstr"
 
 [lib]
 proc_macro = true

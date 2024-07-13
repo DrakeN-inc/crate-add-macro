@@ -3,8 +3,9 @@ name = "add_macro"
 decription = "The some useful macros for easily work and save your time"
 version = "0.1.0"
 edition = "2021"
-authors = ["DrakeN-inc <t.me/DrakeN-inc>"]
+authors = ["DrakeN-inc <t.me/DrakeN_inc>"]
 license = "MIT"
+repository = "https://github.com/DrakeN-inc/rust-add-macro"
 
 [features]
 test = ["dep:regex"]
