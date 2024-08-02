@@ -1,4 +1,4 @@
-/// The macro to fast creating [BTreeSet](std::collections::BTreeSet)
+/// This macros provides the fast creating  [BTreeSet](std::collections::BTreeSet) object
 /// 
 /// # Examples:
 /// ```

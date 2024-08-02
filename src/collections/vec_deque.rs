@@ -1,22 +1,22 @@
-/// The macro to fast creating [VecDeque](std::collections::VecDeque)
+/// This macros provides the fast creating  [VecDeque](std::collections::VecDeque) object
 /// 
 /// # Examples:
 /// ```
-/// use add_macro::vec_deque;
+/// use add_macro::deq;
 /// use std::collections::VecDeque;
 /// 
 /// assert_eq!(
-///     vec_deque![1, 2, 3, 4],
+///     deq![1, 2, 3, 4],
 ///     VecDeque::from([1, 2, 3, 4])
 /// );
 /// 
 /// assert_eq!(
-///     vec_deque![0u8; 10].len(),
+///     deq![0u8; 10].len(),
 ///     10
 /// );
 /// ```
 #[macro_export]
-macro_rules! vec_deque {
+macro_rules! deq {
     () => {
         VecDeque::new()
     };

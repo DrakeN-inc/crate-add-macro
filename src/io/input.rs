@@ -1,11 +1,11 @@
-/// The macro for automatic reading commands from [io::stdin](std::io::stdin)
+/// This macros provides the usefull reading buffer by using [io::stdin](std::io::stdin)
 /// 
 /// # Examples:
 /// ```
 /// use add_macro::input;
 /// 
 /// let buf: String = input!("Type something: ");
-/// dbg!(buf);      // buf = "..."
+/// println!("{buf}");
 /// ```
 #[macro_export]
 macro_rules! input {

@@ -1,4 +1,4 @@
-/// The macro to fast creating [String](std::string::String)
+/// This macros provides the fast creating  [String](std::string::String) object
 /// 
 /// # Examples:
 /// ```

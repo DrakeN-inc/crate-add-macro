@@ -1,12 +1,12 @@
-/// The macro to fast creating [HashSet](std::collections::HashSet)
+/// This macros provides the fast creating  [HashSet](std::collections::HashSet) object
 /// 
 /// # Examples:
 /// ```
-/// use add_macro::hash_set;
+/// use add_macro::set;
 /// use std::collections::HashSet;
 /// 
 /// assert_eq!(
-///     hash_set![1, 2, 3, 4],
+///     set![1, 2, 3, 4],
 ///     {
 ///         let mut set = HashSet::new();
 ///         set.insert(1);
@@ -18,7 +18,7 @@
 /// );
 /// ```
 #[macro_export]
-macro_rules! hash_set {
+macro_rules! set {
     () => {
         HashSet::new()
     };

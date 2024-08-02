@@ -1,14 +1,16 @@
-/// The macro to fast creating [Regex](https://docs.rs/regex)
+/// This macros provides the fast creating  [Regex](https://docs.rs/regex) object
 /// 
 /// # Examples:
 /// ```
-/// use add_macro::regex;
 /// use regex::Regex;
+/// use add_macro::re;
 /// 
-/// let re: Regex = regex!(r"^hello$");
+/// let re: Regex = re!(r"^hello$");
+/// 
+/// assert!(re.is_match("hello"))
 /// ```
 #[macro_export]
-macro_rules! regex {
+macro_rules! re {
     ($s:expr) => {
         regex::Regex::new(&$s).unwrap()
     };

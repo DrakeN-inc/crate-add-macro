@@ -1,4 +1,4 @@
-/// The macro to fast creating [BTreeMap](std::collections::BTreeMap)
+/// This macros provides the fast creating  [BTreeMap](std::collections::BTreeMap) object
 /// 
 /// # Examples:
 /// ```

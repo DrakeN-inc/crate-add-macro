@@ -1,22 +1,22 @@
-/// The macro to fast creating [LinkedList](std::collections::LinkedList)
+/// This macros provides the fast creating  [LinkedList](std::collections::LinkedList) object
 /// 
 /// # Examples:
 /// ```
-/// use add_macro::linked_list;
+/// use add_macro::list;
 /// use std::collections::LinkedList;
 /// 
 /// assert_eq!(
-///     linked_list![1, 2, 3, 4],
+///     list![1, 2, 3, 4],
 ///     LinkedList::from([1, 2, 3, 4])
 /// );
 /// 
 /// assert_eq!(
-///     linked_list![0u8; 10].len(),
+///     list![0u8; 10].len(),
 ///     10
 /// );
 /// ```
 #[macro_export]
-macro_rules! linked_list {
+macro_rules! list {
     () => {
         LinkedList::new()
     };

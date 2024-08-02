@@ -3,5 +3,5 @@ use add_macro::input;
 
 fn main() {
     let buf = input!("Type something: ");
-    dbg!(buf);
+    println!("{buf}");
 }

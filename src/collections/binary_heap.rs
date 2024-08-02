@@ -1,23 +1,24 @@
-/// The macro to fast creating [BinaryHeap](std::collections::BinaryHeap)
+/// This macros provides the fast creating  [BinaryHeap](std::collections::BinaryHeap) object
 /// 
 /// # Examples:
 /// ```
-/// use add_macro::binary_heap;
 /// use std::collections::BinaryHeap;
+/// use add_macro::heap;
 /// 
-/// assert_eq!(
-///     binary_heap![&1, &2, &3, &4].pop(),
-///     BinaryHeap::from([&1, &2, &3, &4]).pop()
-/// );
+/// fn main() {
+///     assert_eq!(
+///         heap![&1, &2, &3, &4].pop(),
+///         BinaryHeap::from([&1, &2, &3, &4]).pop()
+///     );
 /// 
-/// assert_eq!(
-///     binary_heap![&1; 10].len(),
-///     10
-/// );
-/// 
+///     assert_eq!(
+///         heap![&1; 10].len(),
+///         10
+///     );
+/// }
 /// ```
 #[macro_export]
-macro_rules! binary_heap {
+macro_rules! heap {
     () => {
         BinaryHeap::new()
     };
