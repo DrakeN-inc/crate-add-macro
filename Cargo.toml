@@ -5,10 +5,10 @@ version = "0.1.0"
 edition = "2021"
 authors = ["DrakeN-inc <t.me/DrakeN_inc>"]
 license = "MIT"
-repository = "https://github.com/DrakeN-inc/rust-add-macro"
+repository = "https://github.com/DrakeN-inc/crate_add_macro"
 
 [features]
-test = ["dep:regex"]
+tests = ["dep:regex"]
 
 [dependencies]
 regex = { version = "1.10.5", optional = true }
