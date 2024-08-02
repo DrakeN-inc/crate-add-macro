@@ -28,9 +28,9 @@ pub(crate) fn impl_display_enum(data: Enum) -> Result<TokenStream> {
 fn handle_enum_variant(variant: EnumVariant) -> Result<TokenStream> {
     let name = &variant.name;
     
-    // handle macro attributes & get value:
+    // handle macro attribute & get format string:
     let mut attrs = variant.attributes.into_iter();
-    let value = match attrs.next() {
+    let format = match attrs.next() {
         Some(attr) => handle_enum_variant_attribute(name.clone(), attr)?,
         None    => Literal::string(&name.to_string())
     };
@@ -39,7 +39,7 @@ fn handle_enum_variant(variant: EnumVariant) -> Result<TokenStream> {
     match &variant.fields {
         Fields::Unit => {
             Ok(quote! {
-                Self::#name => write!(f, #value),
+                Self::#name => write!(f, #format),
             })
         },
 
@@ -50,7 +50,7 @@ fn handle_enum_variant(variant: EnumVariant) -> Result<TokenStream> {
             }
 
             Ok(quote! {
-                Self::#name(#(#args),*) => write!(f, #value, #(#args),*),
+                Self::#name(#(#args),*) => write!(f, #format, #(#args),*),
             })
         },
 
@@ -61,16 +61,16 @@ fn handle_enum_variant(variant: EnumVariant) -> Result<TokenStream> {
                 .collect::<Vec<_>>();
 
             Ok(quote! {
-                Self::#name{#(#args),*} => write!(f, #value),
+                Self::#name{#(#args),*} => write!(f, #format),
             })
         },
     }
 }
 
-// Handle the macro attribute
+// Handle the macros attribute
 fn handle_enum_variant_attribute(name: Ident, attr: Attribute) -> Result<Literal> {
     // check the attribute path for correctly format:
-    if let Some(_) = attr.get_single_path_segment() {}else{ return Err(Error::IncorrectAttribute) };
+    if attr.get_single_path_segment().is_none() { return Err(Error::IncorrectAttribute) };
     
     match &attr.value {
         AttributeValue::Empty => {

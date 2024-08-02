@@ -30,7 +30,7 @@ impl Email {
 
 #[test]
 fn test_fromstr() -> Result<(), Error> {
-    let _bob: Email = "bob@example.loc".parse()?;
+    let _bob_email: Email = "bob@example.loc".parse()?;
 
     Ok(())
 }

@@ -6,6 +6,7 @@ pub type Result<T> = std::result::Result<T, Error>;
 pub enum Error {
     ImplementationError,
     IncorrectAttribute,
+    ExpectedNamedFields,
 }
 
 impl fmt::Display for Error {
@@ -13,6 +14,7 @@ impl fmt::Display for Error {
         match &self {
             Self::ImplementationError => write!(f, "Implementation of trait 'Display' can be derived for Struct's and Enum's only!"),
             Self::IncorrectAttribute => write!(f, "Incorrect attribute value, correct formats is: #[display] or #[display(\"...\")] or #[display = \"...\"]"),
+            Self::ExpectedNamedFields => write!(f, "Expected a named fields in a structure"),
         }
     }
 }

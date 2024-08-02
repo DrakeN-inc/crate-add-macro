@@ -1,9 +1,7 @@
 extern crate proc_macro;
-
 use proc_macro::TokenStream;
 use syn::{ parse_macro_input, DeriveInput };
 use quote::quote;
-
 
 /// The implementation of the FromStr trait (writed for crate 'add-macro')
 /// 
@@ -23,7 +21,7 @@ use quote::quote;
 /// }
 /// 
 /// impl Email {
-///     // WARNING: this method needs for the implement trait FromStr
+///     // WARNING: this method needs for working the implementation trait FromStr
 ///     pub fn parse(s: &str) -> Result<Self, Error> {
 ///         let spl = s.trim().splitn(2, "@").collect::<Vec<_>>();
 ///         
@@ -38,9 +36,8 @@ use quote::quote;
 ///     }
 /// }
 /// 
-/// #[test]
-/// fn test_fromstr() -> Result<(), Error> {
-///     let bob: Email = "bob-example.loc".parse()?;
+/// fn main() -> Result<(), Error> {
+///     let _bob_email: Email = "bob@example.loc".parse()?;
 /// 
 ///     Ok(())
 /// }
