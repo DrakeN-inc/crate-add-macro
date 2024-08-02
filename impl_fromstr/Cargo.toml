@@ -1,0 +1,15 @@
+[package]
+name = "add-macro-impl-fromstr"
+decription = "Implementation of trait 'FromStr'"
+version = "0.1.0"
+edition = "2021"
+authors = ["DrakeN-inc <t.me/DrakeN_inc>"]
+license = "MIT"
+repository = "https://github.com/DrakeN-inc/crate_add_macro/tree/main/impl_fromstr"
+
+[lib]
+proc_macro = true
+
+[dependencies]
+quote = "1.0.36"
+syn = "2.0.68"
