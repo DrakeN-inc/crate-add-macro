@@ -67,7 +67,7 @@ fn handle_enum_variant(variant: EnumVariant) -> Result<TokenStream> {
     }
 }
 
-// Handle the macro attribute
+// Handle the macros attribute
 fn handle_enum_variant_attribute(name: Ident, attr: Attribute) -> Result<Literal> {
     // check the attribute path for correctly format:
     if attr.get_single_path_segment().is_none() { return Err(Error::IncorrectAttribute) };
