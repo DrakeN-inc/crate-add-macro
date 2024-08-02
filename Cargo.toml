@@ -1,6 +1,6 @@
 [package]
 name = "add-macro"
-decription = "The some useful macros for easily work and save your time"
+decription = "The some useful macroses to help you coding"
 version = "0.1.0"
 edition = "2021"
 authors = ["DrakeN-inc <t.me/DrakeN_inc>"]
