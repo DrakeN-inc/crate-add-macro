@@ -5,15 +5,16 @@ use quote::quote;
 
 // Implementation of trait 'Display' for Struct
 pub(crate) fn impl_display_struct(data: Struct) -> Result<TokenStream> {
-    // handle struct attribute & get format string:
-    let format = if !data.attributes.is_empty() {
-        handle_struct_attribute(&data.attributes[0])?
+    // handle macro attribute & get format string:
+    let mut attrs = data.attributes.into_iter();
+    let format = if let Some(attr) = attrs.next() {
+        handle_struct_attribute(attr)?
     } else {
         None
     };
 
     // handle struct fields:
-    let value = handle_struct_fields(&data.fields, format)?;
+    let value = handle_struct_fields(data.fields, format)?;
     
     // generate tokens:
     let name = data.name;
@@ -27,37 +28,37 @@ pub(crate) fn impl_display_struct(data: Struct) -> Result<TokenStream> {
 }
 
 // Handle the structure fields
-fn handle_struct_fields(fields: &Fields, format: Option<Literal>) -> Result<TokenStream> {
-    Ok(match format {
-        Some(format) => {
-            // prepare fields arguments list:
-            let mut args: Vec<TokenStream> = vec![];
-            match fields {
-                Fields::Named(named_fields) => {
-                    // for each fields:
-                    for field in named_fields.fields.iter() {
-                        let name = &field.0.name;
-                        args.push(quote!{ #name = &self.#name })
-                    }
-                },
-                _ => return Err(Error::ExpectedNamedFields),
-            }
+fn handle_struct_fields(fields: Fields, format: Option<Literal>) -> Result<TokenStream> {
+    if let Some(format) = format {
+        // prepare fields list:
+        let args = match fields {
+            Fields::Named(named_fields) => {
+                named_fields.fields
+                    .into_iter()
+                    .map(|(field, _)| {
+                        let name = &field.name;
+                        quote!{ #name = &self.#name }
+                    })
+                    .collect::<Vec<_>>()
+            },
+            _ => return Err(Error::ExpectedNamedFields),
+        };
 
-            // generate tokens:
-            if !args.is_empty() {
-                quote!{ write!(f, #format, #(#args),*) }
-            } else {
-                quote!{ write!(f, #format) }
-            }
-        },
-        None => quote! {
-            write!(f, "{self:?}")
-        }
-    })
+        // generate tokens:
+        let tokens = if !args.is_empty() {
+            quote!{ write!(f, #format, #(#args),*) }
+        } else {
+            quote!{ write!(f, #format) }
+        };
+
+        Ok(tokens)
+    } else {
+        Ok(quote!{ write!(f, "{self:?}") })
+    }
 }
 
 // Handle the structure attribute value
-fn handle_struct_attribute(attr: &Attribute) -> Result<Option<Literal>> {
+fn handle_struct_attribute(attr: Attribute) -> Result<Option<Literal>> {
     // check the attribute path for correctly format:
     if attr.get_single_path_segment().is_none() { return Err(Error::IncorrectAttribute) };
     

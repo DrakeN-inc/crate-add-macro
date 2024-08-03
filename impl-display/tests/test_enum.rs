@@ -3,24 +3,26 @@ use add_macro_impl_display::Display;
 
 #[derive(Display)]
 enum Animals {
-    Turtle,                                       // style 1: "Turtle"
+    Turtle,
     
-    #[display]                                    // style 2: "Bird"
+    #[display]
     Bird,
     
-    #[display = "The Cat"]                        // style 3: "The Cat"
+    #[display = "The Cat"]
     Cat,
     
-    #[display("The Dog")]                         // style 4: "The Dog"
+    #[display("The Dog")]
     Dog,
 
-    #[display = "{0}"]                            // style 3 with arguments: "..."
     Other(&'static str),
+
+    #[display]
+    Other2(&'static str),
     
-    #[display("{0} {1}, {2} years old")]          // style 4 with arguments: "... ..., ... years old"
+    #[display("{0} {1}, {2} years old")]
     Info(Box<Self>, &'static str, i32),
 
-    #[display("{kind} {name}, {age} years old")]  // style 4 with arguments: "... ..., ... years old" 
+    #[display("{kind} {name}, {age} years old")] 
     Info2 {
         kind: Box<Self>,
         name: &'static str,
@@ -29,12 +31,13 @@ enum Animals {
 }
 
 #[test]
-fn test_enum() -> std::io::Result<()> {
+fn test_enum() {
     assert_eq!(format!("{}", Animals::Turtle), "Turtle");
     assert_eq!(format!("{}", Animals::Bird), "Bird");
     assert_eq!(format!("{}", Animals::Cat), "The Cat");
     assert_eq!(format!("{}", Animals::Dog), "The Dog");
     assert_eq!(format!("{}", Animals::Other("Tiger")), "Tiger");
+    assert_eq!(format!("{}", Animals::Other2("Tiger")), "Tiger");
     assert_eq!(format!("{}", Animals::Info(Box::new(Animals::Cat), "Tomas", 2)), "The Cat Tomas, 2 years old");
     assert_eq!(format!("{}", 
         Animals::Info2 {
@@ -44,6 +47,4 @@ fn test_enum() -> std::io::Result<()> {
         }),
         "The Cat Tomas, 2 years old"
     );
-    
-    Ok(())
 }

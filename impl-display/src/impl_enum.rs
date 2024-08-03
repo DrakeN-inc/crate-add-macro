@@ -8,7 +8,8 @@ pub(crate) fn impl_display_enum(data: Enum) -> Result<TokenStream> {
     // generate values for block 'match &self { ... }':
     let mut values = quote!{};
     for (variant, _) in data.variants.into_iter() {
-        values.extend( handle_enum_variant(variant.clone()) );
+        let value = handle_enum_variant(variant.clone())?;
+        values.extend(quote!{ #value, });
     }
     
     // generate tokens:
@@ -30,58 +31,63 @@ fn handle_enum_variant(variant: EnumVariant) -> Result<TokenStream> {
     
     // handle macro attribute & get format string:
     let mut attrs = variant.attributes.into_iter();
-    let format = match attrs.next() {
-        Some(attr) => handle_enum_variant_attribute(name.clone(), attr)?,
-        None    => Literal::string(&name.to_string())
+    let format = if let Some(attr) = attrs.next() {
+        handle_enum_variant_attribute(attr)?
+    } else {
+        None
     };
 
     // generate tokens:
     match &variant.fields {
         Fields::Unit => {
-            Ok(quote! {
-                Self::#name => write!(f, #format),
-            })
+            let format = format.unwrap_or( Literal::string(&name.to_string()) );
+            Ok(quote!{ Self::#name => write!(f, #format) })
         },
 
         Fields::Tuple(tuple_fields) => {
-            let mut args = vec![];
-            for i in 0..tuple_fields.fields.len() {
-                args.push( Ident::new(&format!("v{i}"), Span::call_site()) );
-            }
+            let mut is_none = false;
+            let format = format.unwrap_or_else(|| {is_none = true; Literal::string(&name.to_string())});
 
-            Ok(quote! {
-                Self::#name(#(#args),*) => write!(f, #format, #(#args),*),
-            })
+            if is_none && tuple_fields.fields.len() == 1 {
+                Ok(quote!{ Self::#name(v) => write!(f, "{v}") })
+            } else {
+                let args = tuple_fields.fields
+                    .into_iter()
+                    .enumerate()
+                    .map(|(i, _)| Ident::new(&format!("v{i}"), Span::call_site()))
+                    .collect::<Vec<_>>();
+    
+                Ok(quote!{ Self::#name(#(#args),*) => write!(f, #format, #(#args),*) })
+            }
         },
 
         Fields::Named(named_fields) => {
+            let format = format.unwrap_or( Literal::string(&name.to_string()) );
             let args = named_fields.fields
                 .into_iter()
                 .map(|(field, _)| field.name.clone())
                 .collect::<Vec<_>>();
 
-            Ok(quote! {
-                Self::#name{#(#args),*} => write!(f, #format),
-            })
+            Ok(quote!{ Self::#name{#(#args),*} => write!(f, #format) })
         },
     }
 }
 
 // Handle the macros attribute
-fn handle_enum_variant_attribute(name: Ident, attr: Attribute) -> Result<Literal> {
+fn handle_enum_variant_attribute(attr: Attribute) -> Result<Option<Literal>> {
     // check the attribute path for correctly format:
     if attr.get_single_path_segment().is_none() { return Err(Error::IncorrectAttribute) };
     
     match &attr.value {
         AttributeValue::Empty => {
-            Ok(Literal::string(&name.to_string()))
+            Ok(None)
         },
 
         AttributeValue::Group(_, tokens) => {
             let token = if let Some(token) = tokens.get(0) { token }else{ return Err(Error::IncorrectAttribute) };
 
             if let TokenTree::Literal(value) = token {
-                Ok(value.clone())
+                Ok(Some(value.clone()))
             }else{ 
                 Err(Error::IncorrectAttribute)
             }
@@ -91,7 +97,7 @@ fn handle_enum_variant_attribute(name: Ident, attr: Attribute) -> Result<Literal
             let token = if let Some(token) = tokens.get(0) { token }else{ return Err(Error::IncorrectAttribute) };
 
             if let TokenTree::Literal(value) = token {
-                Ok(value.clone())
+                Ok(Some(value.clone()))
             }else{ 
                 Err(Error::IncorrectAttribute)
             }
