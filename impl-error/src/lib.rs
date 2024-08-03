@@ -7,7 +7,7 @@ pub(crate) mod prelude;     use prelude::*;
 mod impl_enum;              use impl_enum::impl_error_enum;
 mod impl_struct;            use impl_struct::impl_error_struct;
 
-/// This macros provides the implementation of trait 'Error' (writed for crate [add_macro](https://docs.rs/add_macro))
+/// This macros provides the implementation of trait [Error](std::error::Error) (writed for crate [add_macro](https://docs.rs/add_macro))
 /// 
 /// # Examples:
 /// ```
