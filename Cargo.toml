@@ -1,5 +1,5 @@
 [package]
-name = "add-macro"
+name = "add_macro"
 description = "The more additional macros to help you write code faster!"
 version = "0.3.0"
 edition = "2021"
