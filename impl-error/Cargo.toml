@@ -1,6 +1,6 @@
 [package]
 name = "add-macro-impl-error"
-decription = "Implementation of trait 'Error'"
+description = "Implementation of trait 'Error'"
 version = "0.1.0"
 edition = "2021"
 authors = ["DrakeN-inc <t.me/DrakeN_inc>"]

@@ -1,6 +1,6 @@
 [package]
 name = "add-macro-impl-fromstr"
-decription = "Implementation of trait 'FromStr'"
+description = "Implementation of trait 'FromStr'"
 version = "0.1.0"
 edition = "2021"
 authors = ["DrakeN-inc <t.me/DrakeN_inc>"]
