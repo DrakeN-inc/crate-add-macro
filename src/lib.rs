@@ -95,7 +95,7 @@ pub mod io;
 pub use add_macro_impl_display::Display;
 
 
-/// The implementation of trait 'Error'
+/// This macros provides the implementation of trait 'Error'
 /// 
 /// # Examples:
 /// ```
