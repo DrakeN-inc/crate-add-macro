@@ -1,6 +1,16 @@
 [package]
 name = "add-macro-impl-error"
+decription = "Implementation of trait 'Error'"
 version = "0.1.0"
 edition = "2021"
+authors = ["DrakeN-inc <t.me/DrakeN_inc>"]
+license = "MIT"
+repository = "https://github.com/DrakeN-inc/crate-add-macro/tree/main/impl-error"
+
+[lib]
+proc_macro = true
 
 [dependencies]
+proc-macro2 = "1.0.86"
+quote = "1.0.36"
+venial = "0.6.0"
