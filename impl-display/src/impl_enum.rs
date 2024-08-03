@@ -8,7 +8,7 @@ pub(crate) fn impl_display_enum(data: Enum) -> Result<TokenStream> {
     // generate values for block 'match &self { ... }':
     let mut values = quote!{};
     for (variant, _) in data.variants.into_iter() {
-        let value = handle_enum_variant(variant.clone())?;
+        let value = handle_enum_variant(&variant)?;
         values.extend(quote!{ #value, });
     }
     
@@ -26,13 +26,12 @@ pub(crate) fn impl_display_enum(data: Enum) -> Result<TokenStream> {
 }
 
 // Handle the enum variant
-fn handle_enum_variant(variant: EnumVariant) -> Result<TokenStream> {
+fn handle_enum_variant(variant: &EnumVariant) -> Result<TokenStream> {
     let name = &variant.name;
     
     // handle macro attribute & get format string:
-    let mut attrs = variant.attributes.into_iter();
-    let format = if let Some(attr) = attrs.next() {
-        handle_enum_variant_attribute(attr)?
+    let format = if let Some(attr) = variant.attributes.get(0) {
+        handle_enum_variant_attribute(&attr)?
     } else {
         None
     };
@@ -74,7 +73,7 @@ fn handle_enum_variant(variant: EnumVariant) -> Result<TokenStream> {
 }
 
 // Handle the macros attribute
-fn handle_enum_variant_attribute(attr: Attribute) -> Result<Option<Literal>> {
+fn handle_enum_variant_attribute(attr: &Attribute) -> Result<Option<Literal>> {
     // check the attribute path for correctly format:
     if attr.get_single_path_segment().is_none() { return Err(Error::IncorrectAttribute) };
     

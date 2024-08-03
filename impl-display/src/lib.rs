@@ -7,7 +7,7 @@ pub(crate) mod prelude;     use prelude::*;
 mod impl_enum;              use impl_enum::impl_display_enum;
 mod impl_struct;            use impl_struct::impl_display_struct;
 
-/// The implementation of trait 'Display' (writed for crate [add_macro](https://docs.rs/add_macro))
+/// This macros provides the implementation of trait [Display](std::fmt::Display) (writed for crate [add_macro](https://docs.rs/add_macro))
 /// 
 /// # Examples:
 /// ```

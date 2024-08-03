@@ -6,15 +6,14 @@ use quote::quote;
 // Implementation of trait 'Display' for Struct
 pub(crate) fn impl_display_struct(data: Struct) -> Result<TokenStream> {
     // handle macro attribute & get format string:
-    let mut attrs = data.attributes.into_iter();
-    let format = if let Some(attr) = attrs.next() {
-        handle_struct_attribute(attr)?
+    let format = if let Some(attr) = data.attributes.get(0) {
+        handle_struct_attribute(&attr)?
     } else {
         None
     };
 
     // handle struct fields:
-    let value = handle_struct_fields(data.fields, format)?;
+    let value = handle_struct_fields(&data.fields, format)?;
     
     // generate tokens:
     let name = data.name;
@@ -28,7 +27,7 @@ pub(crate) fn impl_display_struct(data: Struct) -> Result<TokenStream> {
 }
 
 // Handle the structure fields
-fn handle_struct_fields(fields: Fields, format: Option<Literal>) -> Result<TokenStream> {
+fn handle_struct_fields(fields: &Fields, format: Option<Literal>) -> Result<TokenStream> {
     if let Some(format) = format {
         // prepare fields list:
         let args = match fields {
@@ -58,7 +57,7 @@ fn handle_struct_fields(fields: Fields, format: Option<Literal>) -> Result<Token
 }
 
 // Handle the structure attribute value
-fn handle_struct_attribute(attr: Attribute) -> Result<Option<Literal>> {
+fn handle_struct_attribute(attr: &Attribute) -> Result<Option<Literal>> {
     // check the attribute path for correctly format:
     if attr.get_single_path_segment().is_none() { return Err(Error::IncorrectAttribute) };
     
