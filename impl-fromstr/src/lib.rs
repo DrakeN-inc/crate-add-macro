@@ -3,7 +3,7 @@ use proc_macro::TokenStream;
 use syn::{ parse_macro_input, DeriveInput };
 use quote::quote;
 
-/// The implementation of the FromStr trait (writed for crate 'add-macro')
+/// This macros provides the implementation of the trait [FromStr](std::str::FromStr) (writed for crate [add_macro](https://docs.rs/add_macro))
 /// 
 /// # Examples:
 /// ```
