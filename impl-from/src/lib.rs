@@ -91,8 +91,16 @@ pub fn derive_from(input: TokenStream) -> TokenStream {
     let item = parse_item(input.into()).unwrap();
     
     match item {
-        Item::Enum(data) => impl_from_enum(data).unwrap().into(),
-        Item::Struct(data) => impl_from_struct(data).unwrap().into(),
+        Item::Enum(data) => match impl_from_enum(data) {
+            Ok(output) => output.into(),
+            Err(e) => panic!("{e}")
+        },
+
+        Item::Struct(data) => match impl_from_struct(data) {
+            Ok(output) => output.into(),
+            Err(e) => panic!("{e}")
+        },
+
         _ => panic!("{}", Error::ImplementationError)
     }
 }
