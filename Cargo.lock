@@ -58,7 +58,7 @@ dependencies = [
 
 [[package]]
 name = "add_macro"
-version = "0.3.0"
+version = "0.3.1"
 dependencies = [
  "add-macro-impl-display",
  "add-macro-impl-error",
