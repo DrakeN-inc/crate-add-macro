@@ -1,6 +1,6 @@
 [package]
 name = "add_macro"
-description = "The more additional macros to help you write code faster!"
+description = "This crate provides the more additional macros to help you write code faster!"
 version = "0.3.0"
 edition = "2021"
 authors = ["DrakeN-inc <t.me/DrakeN_inc>"]

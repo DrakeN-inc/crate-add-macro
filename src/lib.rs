@@ -1,11 +1,11 @@
-//! This crate adds the some useful macros for easily work and save your time
+//! This crate provides the more additional macros to help you write code faster!
 
 pub mod string;
 pub mod collections;
 pub mod io;
 
 
-/// This macros provides the implementation of trait [Display](std::fmt::Display) (writed for crate [add_macro](https://docs.rs/add_macro))
+/// This macros provides the implementation of trait [Display](std::fmt::Display)
 /// 
 /// # Examples:
 /// ```
@@ -95,7 +95,7 @@ pub mod io;
 pub use add_macro_impl_display::Display;
 
 
-/// The implementation of trait 'Error' (writed for crate [add_macro](https://docs.rs/add_macro))
+/// The implementation of trait 'Error'
 /// 
 /// # Examples:
 /// ```
@@ -138,7 +138,7 @@ pub use add_macro_impl_display::Display;
 pub use add_macro_impl_error::Error;
 
 
-/// This macros provides the implementation of the trait [FromStr](std::str::FromStr) (writed for crate [add_macro](https://docs.rs/add_macro))
+/// This macros provides the implementation of the trait [FromStr](std::str::FromStr)
 /// 
 /// # Examples:
 /// ```
@@ -180,7 +180,7 @@ pub use add_macro_impl_error::Error;
 pub use add_macro_impl_fromstr::FromStr;
 
 
-/// This macros provides the implementation of trait [From<T>](std::convert::From) (writed for crate [add_macro](https://docs.rs/add_macro))
+/// This macros provides the implementation of trait [From<T>](std::convert::From)
 /// 
 /// # Examples:
 /// ```
@@ -261,7 +261,7 @@ pub use add_macro_impl_fromstr::FromStr;
 pub use add_macro_impl_from::From;
 
 
-/// This macros provides the implementation of trait [Into<T>](std::convert::Into) (writed for crate [add_macro](https://docs.rs/add_macro))
+/// This macros provides the implementation of trait [Into<T>](std::convert::Into)
 /// 
 /// # Examples:
 /// ```
