@@ -1,7 +1,7 @@
 [package]
 name = "add_macro"
 description = "This crate provides the more additional macros to help you write code faster!"
-version = "0.3.1"
+version = "0.3.2"
 edition = "2021"
 authors = ["DrakeN-inc <t.me/DrakeN_inc>"]
 license = "MIT"

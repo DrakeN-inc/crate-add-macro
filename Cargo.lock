@@ -4,9 +4,9 @@ version = 3
 
 [[package]]
 name = "add-macro-impl-display"
-version = "0.1.0"
+version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "13e0246429fb1e36e2531e3f0ea709277d994ebfb7f20b7c202ad5640a5547bc"
+checksum = "89d1e909d4729148333efb93beb0dab55ad399973dd2e4030dfc724785252f85"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -26,9 +26,9 @@ dependencies = [
 
 [[package]]
 name = "add-macro-impl-from"
-version = "0.1.0"
+version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ecb021b35463628c49e6edd8424cd82454cd36de93fc31fe1f50d7d6874a8b9d"
+checksum = "faafbbbb7b57496a177617cc5d6a74cc36b61aa9515a6251e4b919f86016ddb1"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -47,9 +47,9 @@ dependencies = [
 
 [[package]]
 name = "add-macro-impl-into"
-version = "0.1.0"
+version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ad6dddec3eeedb1f58cbd87c495188c595386ad0f8be0c78212bc57a59e97403"
+checksum = "6fd956744f6d8b6681458e77e28ad097a107aa289583d87cad813eff863432b4"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -58,7 +58,7 @@ dependencies = [
 
 [[package]]
 name = "add_macro"
-version = "0.3.1"
+version = "0.3.2"
 dependencies = [
  "add-macro-impl-display",
  "add-macro-impl-error",
