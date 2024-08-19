@@ -5,11 +5,13 @@ use quote::quote;
 
 // Implementation of trait 'Display' for Struct
 pub(crate) fn impl_display_struct(data: Struct) -> Result<TokenStream> {
-    // handle macro attribute & get format string:
-    let format = if let Some(attr) = data.attributes.get(0) {
-        handle_struct_attribute(&attr)?
-    } else {
-        None
+    // for each attributes & get format string:
+    let mut format = None;
+    for attr in &data.attributes {
+        if check_attr_name(&attr, "display") {
+            format = handle_struct_attribute(&attr)?;
+            break;
+        }
     };
 
     // handle struct fields:

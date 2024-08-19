@@ -10,8 +10,11 @@ pub(crate) fn impl_from_enum(data: Enum) -> Result<TokenStream> {
 
     // reading enum attributes:
     for attr in data.attributes.into_iter() {
+        if !check_attr_name(&attr, "from") { continue }
+
         match attr.value {
             AttributeValue::Group(_, tokens) => {
+                
                 // parse attribute arguments:
                 let (ty, expr) = parse_attr_arguments(&tokens)?;
     
@@ -45,6 +48,8 @@ fn handle_enum_variant(enum_name: &Ident, variant: &EnumVariant) -> Result<Token
     
     // reading attributes:
     for attr in variant.attributes.iter() {
+        if !check_attr_name(&attr, "from") { continue }
+
         // parse attribute arguments:
         let (ty, expr) = match &attr.value {
             AttributeValue::Empty => {

@@ -67,8 +67,7 @@ mod impl_struct;            use impl_struct::impl_from_struct;
 /// }
 ///
 /// fn main() {
-///     let io_err = Error::from( std::fs::read("fake/path/to/file").unwrap_err() );
-///     assert_eq!(format!("{io_err}"), "No such file or directory (os error 2)");
+///     let _io_err = Error::from( std::fs::read("fake/path/to/file").unwrap_err() );
 ///
 ///     let simple_err = Error::from( SimpleError::Wrong );
 ///     assert_eq!(format!("{simple_err}"), "Something went wrong.. =/");

@@ -11,9 +11,9 @@ pub(crate) fn impl_into_struct(data: Struct) -> Result<TokenStream> {
     // reading attributes:
     let attrs = data.attributes;
     for attr in attrs.into_iter() {
-        let attr = attr.value;
+        if !check_attr_name(&attr, "into") { continue }
 
-        match attr {
+        match attr.value {
             AttributeValue::Group(_, tokens) => {
                 // parse attribute arguments:
                 let (ty, expr) = parse_attr_arguments(&tokens)?;

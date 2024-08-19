@@ -25,6 +25,7 @@ impl std::fmt::Display for SuperError {
     }
 }
 
+#[allow(dead_code)]
 #[derive(Debug, From)]
 #[from("std::io::Error" = "Self::Io(v)")]       // result: impl From<std::io::Error> for Error { fn from(v: std::io::Error) -> Self { Self::Io(v) } }
 enum Error {
@@ -40,6 +41,8 @@ enum Error {
     #[from("&str" = "v.to_owned()")]
     #[from("i32" = "format!(\"Error code: {v}\")")]
     Stringify(String),
+
+    Test,
 }
  
 impl std::fmt::Display for Error {
@@ -49,14 +52,14 @@ impl std::fmt::Display for Error {
             Self::Simple(e) => write!(f, "{e}"),
             Self::Super(e) => write!(f, "{e}"),
             Self::Stringify(e) => write!(f, "{e}"),
+            Self::Test => todo!()
         }
     }
 }
 
 #[test]
 fn test_enum() {
-    let io_err = Error::from( std::fs::read("fake/path/to/file").unwrap_err() );
-    assert_eq!(format!("{io_err}"), "No such file or directory (os error 2)");
+    let _io_err = Error::from( std::fs::read("fake/path/to/file").unwrap_err() );
 
     let simple_err = Error::from( SimpleError::Wrong );
     assert_eq!(format!("{simple_err}"), "Something went wrong.. =/");

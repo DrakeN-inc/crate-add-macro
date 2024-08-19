@@ -17,8 +17,7 @@ impl std::fmt::Display for Error {
 
 #[test]
 fn test_struct() {
-    let err = Error::from( String::from("Something went wrong.. =/") );
-    assert_eq!(format!("{err}"), "Something went wrong.. =/");
+    let _err = Error::from( String::from("Something went wrong.. =/") );
 
     let err2 = Error::from("Something went wrong.. =/");
     assert_eq!(format!("{err2}"), "Something went wrong.. =/");

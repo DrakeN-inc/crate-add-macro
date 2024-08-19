@@ -1,5 +1,16 @@
 use crate::prelude::*;
 use proc_macro2::{ TokenStream, TokenTree };
+use venial::Attribute;
+
+// Check attribute name
+pub(crate) fn check_attr_name(attr: &Attribute, name: &str) -> bool {
+    if let Some(attr_name) = attr.get_single_path_segment() {
+        if attr_name == name {
+            return true;
+        }
+    };
+    false
+}
 
 // Parsing the attribute single argument
 pub(crate) fn parse_attr_argument(token: &TokenTree) -> Result<TokenStream> {

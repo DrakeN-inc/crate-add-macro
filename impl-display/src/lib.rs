@@ -3,6 +3,7 @@ use proc_macro::TokenStream;
 use venial::{ parse_item, Item };
 
 pub(crate) mod error;
+pub(crate) mod tools;
 pub(crate) mod prelude;     use prelude::*;
 mod impl_enum;              use impl_enum::impl_display_enum;
 mod impl_struct;            use impl_struct::impl_display_struct;
@@ -67,28 +68,32 @@ mod impl_struct;            use impl_struct::impl_display_struct;
 /// struct Person {
 ///     pub name: String,
 ///     pub age: u8,
+///     pub email: String,
 /// }
 /// 
 /// #[derive(Debug, Display)]
-/// #[display("Hello, {name}! Your age is {age} years old.")]
-/// struct Person2 {
+/// #[display("Hello, {name}! Your age is {age} years old.{email:.0}")]  // NOTE: if you don't need to use one of field, that use {field_name:.0} syntax
+/// struct PersonInfo {
 ///     pub name: String,
 ///     pub age: u8,
+///     pub email: String,
 /// }
 ///
 /// fn main() {
 ///     assert_eq!(
 ///         format!("{}", Person {
 ///             name: "Bob".to_owned(),
-///             age: 22
+///             age: 22,
+///             email: "bob@example.loc".to_owned()
 ///         }),
-///         "Person { name: \"Bob\", age: 22 }"
+///         r#"Person { name: "Bob", age: 22, email: "bob@example.loc" }"#
 ///     );
 /// 
 ///     assert_eq!(
-///         format!("{}", Person2 {
+///         format!("{}", PersonInfo {
 ///             name: "Bob".to_owned(),
-///             age: 22
+///             age: 22,
+///             email: "bob@example.loc".to_owned()
 ///         }),
 ///         "Hello, Bob! Your age is 22 years old."
 ///     );
